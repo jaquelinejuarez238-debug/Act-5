@@ -1,0 +1,80 @@
+// ==========================================
+// 1. FILTRADO Y VALIDACIÓN
+// ==========================================
+FUNCION filtrar_datos_validos(datos_brutos)
+    crear lista llamada datos_filtrados
+    
+    PARA CADA valor EN datos_brutos HACER
+        SI el valor NO ES NULO Y el valor ES MAYOR O IGUAL A 0 ENTONCES
+            agregar valor convertido a decimal a datos_filtrados
+        FIN SI
+    FIN PARA
+    
+    RETORNAR datos_filtrados
+FIN FUNCION
+
+
+// ==========================================
+// 2. CÁLCULOS ESTADÍSTICOS (Responsabilidad Única)
+// ==========================================
+FUNCION calcular_media(datos)
+    total_elementos = CANTIDAD(datos)
+    
+    SI total_elementos ES IGUAL A 0 ENTONCES
+        RETORNAR NULO
+    FIN SI
+    
+    suma_total = SUMATORIA(datos)
+    RETORNAR suma_total / total_elementos
+FIN FUNCION
+
+FUNCION calcular_varianza(datos, media)
+    total_elementos = CANTIDAD(datos)
+    
+    SI total_elementos ES IGUAL A 0 ENTONCES
+        RETORNAR NULO
+    FIN SI
+    
+    suma_diferencias_cuadradas = SUMATORIA_PARA_CADA(x EN datos: (x - media) al cuadrado)
+    
+    RETORNAR suma_diferencias_cuadradas / total_elementos
+FIN FUNCION
+
+FUNCION calcular_desviacion_estandar(varianza)
+    RETORNAR RAIZ_CUADRADA(varianza)
+FIN FUNCION
+
+
+// ==========================================
+// 3. ORQUESTADOR PRINCIPAL
+// ==========================================
+FUNCION calcular_estadisticas_completas(datos_brutos)
+    datos_limpios = filtrar_datos_validos(datos_brutos)
+    
+    SI CANTIDAD(datos_limpios) ES IGUAL A 0 ENTONCES
+        RETORNAR NULO
+    FIN SI
+    
+    media = calcular_media(datos_limpios)
+    varianza = calcular_varianza(datos_limpios, media)
+    desviacion = calcular_desviacion_estandar(varianza)
+    
+    // Retornamos un objeto o estructura con nombres claros
+    RETORNAR {
+        "media": media,
+        "varianza": varianza,
+        "desviacion": desviacion
+    }
+FIN FUNCION
+
+
+// ==========================================
+// EJECUCIÓN DEL PROGRAMA
+// ==========================================
+INICIO
+    datos_XYZ = [12.5, -999, 15.0, NULO, 18.2, 20.1, -5, 14.8]
+    
+    resultado = calcular_estadisticas_completas(datos_XYZ)
+    
+    IMPRIMIR "Resultado:", resultado
+FIN
