@@ -1,0 +1,35 @@
+Inicio
+    // 1. Declarar variables y el arreglo con los números
+    Arreglo A = [25.4, 12.8, 35.1, 4.2, 18.5]
+    n = 5
+    i = 0
+    j = 0
+    min_idx = 0
+    aux = 0
+
+    // 2. Ciclo principal para recorrer cada posición del arreglo
+    Para i desde 0 hasta n - 2 Hacer
+        min_idx = i  // Suponemos que el actual es el más pequeño
+
+        // 3. Ciclo interno para buscar el número más pequeño en la parte restante
+        Para j desde i + 1 hasta n - 1 Hacer
+            
+            // Condición para encontrar un valor menor
+            Si A[j] < A[min_idx] Entonces
+                min_idx = j  // Actualizamos la posición del nuevo menor
+            Fin Si
+            
+        Fin Para
+
+        // 4. Condición para intercambiar si encontramos un número menor
+        Si min_idx != i Entonces
+            aux = A[i]
+            A[i] = A[min_idx]
+            A[min_idx] = aux
+        Fin Si
+
+    Fin Para
+
+    // Resultado final
+    Imprimir "Arreglo ordenado:", A
+Fin
