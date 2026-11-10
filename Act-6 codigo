@@ -1,0 +1,51 @@
+import math
+
+def filtrar_datos(datos):
+    filtrados = []
+
+    for x in datos:
+        if x is not None and x >= 0:
+            filtrados.append(float(x))
+
+    return filtrados
+
+
+def calcular_media(datos):
+    return sum(datos) / len(datos)
+
+
+def calcular_varianza(datos, media):
+    suma = 0
+
+    for x in datos:
+        suma += (x - media) ** 2
+
+    return suma / len(datos)
+
+
+def calcular_desviacion(varianza):
+    return math.sqrt(varianza)
+
+
+def calcular_estadisticas(datos):
+    datos = filtrar_datos(datos)
+
+    if len(datos) == 0:
+        return None
+
+    media = calcular_media(datos)
+    varianza = calcular_varianza(datos, media)
+    desviacion = calcular_desviacion(varianza)
+
+    return {
+        "Media": media,
+        "Varianza": varianza,
+        "Desviacion": desviacion
+    }
+
+
+datos_XYZ = [12.5, -999, 15.0, None, 18.2, 20.1, -5, 14.8]
+
+resultado = calcular_estadisticas(datos_XYZ)
+
+print("Resultado:", resultado)
